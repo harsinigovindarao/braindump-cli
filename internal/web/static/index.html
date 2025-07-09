@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Braindump UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    async function submitThought() {
+      const thought = document.getElementById("thoughtInput").value;
+      const res = await fetch("/thought", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: thought }),
+      });
+      document.getElementById("response").innerText = await res.text();
+      document.getElementById("thoughtInput").value = "";
+    }
+
+    async function triggerPrompt() {
+      const res = await fetch("/prompt");
+      const promptText = await res.text();
+      const box = document.getElementById("promptBox");
+      box.innerText = promptText;
+      box.classList.remove("hidden");
+    }
+
+    async function fetchSummary() {
+      const res = await fetch("/summary");
+      document.getElementById("summary").innerText = await res.text();
+    }
+
+    async function fetchDetailedSummary() {
+      const body = document.getElementById('pageBody');
+      body.classList.replace('flex-col', 'flex-row');
+      body.classList.replace('items-center', 'items-start');
+      body.classList.replace('justify-center', 'justify-start');
+
+      const left = document.getElementById('leftBox');
+      left.classList.remove('max-w-md', 'mx-auto');
+      left.classList.replace('w-full', 'w-1/2');
+
+      const res = await fetch("/summary-detail");
+      const text = await res.text();
+
+      document.getElementById("detailedSummary").innerText = text;
+      document.getElementById("detailBox").classList.remove("hidden");
+    }
+
+    function closeDetail() {
+      const body = document.getElementById('pageBody');
+      body.classList.replace('flex-row', 'flex-col');
+      body.classList.replace('items-start', 'items-center');
+      body.classList.replace('justify-start', 'justify-center');
+
+      const left = document.getElementById('leftBox');
+      left.classList.replace('w-1/2', 'w-full');
+      left.classList.add('max-w-md', 'mx-auto');
+
+      document.getElementById("detailBox").classList.add("hidden");
+    }
+
+    async function fetchReport() {
+      const res = await fetch("/report");
+      document.getElementById("report").innerText = await res.text();
+    }
+
+    async function triggerExport() {
+      await fetch("/export");
+      document.getElementById("downloadLink").classList.remove("hidden");
+    }
+
+    // Auto-refresh report every 50 seconds
+    setInterval(fetchReport, 50000);
+  </script>
+</head>
+<body id="pageBody" class="bg-black text-white min-h-screen flex flex-col items-center justify-center">
+  <div id="leftBox" class="max-w-md w-full mx-auto p-6 space-y-6 flex-shrink-0">
+    <div class="bg-white text-black rounded-2xl p-6 shadow-lg">
+      <h1 class="text-2xl font-bold mb-2 text-center">What's on your mind?</h1>
+      <div id="promptBox" class="hidden text-base font-medium text-amber-400 text-center mb-4 italic"></div>
+      <textarea id="thoughtInput" class="w-full p-3 border rounded-md resize-none h-24 mb-4" placeholder="Type your thought here..."></textarea>
+      <button onclick="submitThought()" class="w-full bg-black text-white py-2 rounded hover:bg-gray-800 text-sm">Submit</button>
+      <div id="response" class="mt-4 text-sm text-green-700"></div>
+    </div>
+
+    <div class="bg-white text-black rounded-2xl p-4 shadow-lg text-center">
+      <div class="grid grid-cols-3 gap-4">
+        <button onclick="triggerPrompt()" class="bg-gray-200 text-black px-2 py-1 rounded text-xs">Prompt</button>
+        <button onclick="fetchSummary()" class="bg-gray-200 text-black px-2 py-1 rounded text-xs">Summary</button>
+        <button onclick="fetchDetailedSummary()" class="bg-gray-200 text-black px-2 py-1 rounded text-xs">Detailed</button>
+        <button onclick="fetchReport()" class="bg-gray-200 text-black px-2 py-1 rounded text-xs">Report</button>
+        <button onclick="triggerExport()" class="bg-gray-200 text-black px-2 py-1 rounded text-xs">Export</button>
+        <a id="downloadLink" href="/download" download class="hidden bg-blue-500 text-white px-3 py-1 rounded text-xs">Download JSON</a>
+      </div>
+    </div>
+
+    <div class="bg-white text-black rounded-2xl p-6 shadow-lg">
+      <h2 class="text-xl font-semibold mb-2">Summary</h2>
+      <pre id="summary" class="text-sm whitespace-pre-wrap"></pre>
+      <h2 class="text-xl font-semibold mt-4 mb-2">Report</h2>
+      <pre id="report" class="text-sm whitespace-pre-wrap"></pre>
+    </div>
+  </div>
+
+  <div id="detailBox" class="hidden w-1/2 p-6">
+    <div class="relative bg-gray-800 text-white rounded-2xl p-6 shadow-lg">
+      <button onclick="closeDetail()" class="absolute top-2 right-2 text-white hover:text-red-400 text-lg">✕</button>
+      <h2 class="text-xl font-semibold mb-4">Detailed Summary</h2>
+      <pre id="detailedSummary" class="text-sm whitespace-pre-wrap"></pre>
+    </div>
+  </div>
+</body>
+</html>
