@@ -1,12 +1,13 @@
 package storage
 
 import (
-	"braindump-cli/internal/models"
 	"bufio"
 	"encoding/json"
 	"fmt"
 	"os"
 	"sort"
+
+	"github.com/harsinigovindarao/braindump-cli/internal/models"
 )
 
 var AllThoughts = []models.Thought{}

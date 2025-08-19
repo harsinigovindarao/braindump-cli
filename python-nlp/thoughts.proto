@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package thoughts;
+
+service ThoughtService {
+  rpc ClassifyThought (ThoughtRequest) returns (ThoughtResponse);
+}
+
+message ThoughtRequest {
+  string text = 1;
+}
+
+message ThoughtResponse {
+  string category = 1;
+  string tone = 2;
+}

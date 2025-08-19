@@ -7,12 +7,12 @@ import (
 	"strings"
 	"time"
 
-	"braindump-cli/internal/app/workers"
-	"braindump-cli/internal/models"
-	"braindump-cli/internal/prompts"
-	"braindump-cli/internal/storage"
+	"github.com/harsinigovindarao/braindump-cli/internal/app/workers"
+	"github.com/harsinigovindarao/braindump-cli/internal/models"
+	"github.com/harsinigovindarao/braindump-cli/internal/prompts"
+	"github.com/harsinigovindarao/braindump-cli/internal/storage"
 
-	classification "braindump-cli/internal/classification"
+	classification "github.com/harsinigovindarao/braindump-cli/internal/classification"
 
 	"github.com/google/uuid"
 )

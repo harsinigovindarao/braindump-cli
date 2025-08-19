@@ -1,7 +1,7 @@
 package main
 
 import (
-	"braindump-cli/internal/app/web"
+	"github.com/harsinigovindarao/braindump-cli/internal/app/web"
 )
 
 func main() {

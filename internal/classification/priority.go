@@ -1,8 +1,9 @@
 package utils
 
 import (
-	"braindump-cli/internal/models"
 	"strings"
+
+	"github.com/harsinigovindarao/braindump-cli/internal/models"
 )
 
 // ScorePriority assigns a score based on tone and frequency

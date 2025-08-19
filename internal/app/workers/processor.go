@@ -1,11 +1,11 @@
 package workers
 
 import (
-	"braindump-cli/internal/models"
-	"braindump-cli/internal/storage"
-	"braindump-cli/internal/classification"
 	"fmt"
 	"strings"
+
+	"github.com/harsinigovindarao/braindump-cli/internal/models"
+	"github.com/harsinigovindarao/braindump-cli/internal/storage"
 )
 
 func StartProcessor(ch <-chan models.Thought) {

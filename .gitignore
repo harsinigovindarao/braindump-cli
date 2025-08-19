@@ -1,0 +1,8 @@
+# Ignore Python venv
+python-nlp/venv/
+
+# Ignore build/output artifacts
+bin/
+*.exe
+*.log
+*.tmp

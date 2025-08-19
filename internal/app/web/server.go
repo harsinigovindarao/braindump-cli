@@ -1,11 +1,11 @@
 package web
 
 import (
-	"braindump-cli/internal/models"
-	"braindump-cli/internal/prompts"
-	"braindump-cli/internal/storage"
+	"github.com/harsinigovindarao/braindump-cli/internal/models"
+	"github.com/harsinigovindarao/braindump-cli/internal/prompts"
+	"github.com/harsinigovindarao/braindump-cli/internal/storage"
 
-	//"braindump-cli/internal/classification"
+	//"github.com/harsinigovindarao/braindump-cli/internal/classification"
 	"encoding/json"
 	"fmt"
 	"net/http"

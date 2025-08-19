@@ -1,15 +1,17 @@
 package prompts
 
 import (
-	"braindump-cli/internal/models"
-	"braindump-cli/internal/storage"
-	"braindump-cli/internal/classification"
 	"bufio"
 	"fmt"
 	"math/rand"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/harsinigovindarao/braindump-cli/internal/models"
+	"github.com/harsinigovindarao/braindump-cli/internal/storage"
+	"github.com/harsinigovindarao/braindump-cli/internal/utils"
+
 )
 
 var samplePrompts = []string{

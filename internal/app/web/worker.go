@@ -1,9 +1,8 @@
 package web
 
 import (
-	"braindump-cli/internal/models"
-	"braindump-cli/internal/storage"
-	"braindump-cli/internal/classification"
+	"github.com/harsinigovindarao/braindump-cli/internal/models"
+	"github.com/harsinigovindarao/braindump-cli/internal/storage"
 )
 
 // Channels

@@ -1,8 +1,9 @@
 package utils
 
 import (
-	"braindump-cli/internal/models"
 	"strings"
+
+	"github.com/harsinigovindarao/braindump-cli/internal/models"
 )
 
 // 🔍 Stop words list (you can expand it)
