@@ -8,10 +8,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/harsinigovindarao/braindump-cli/internal/models"
 	"github.com/harsinigovindarao/braindump-cli/internal/storage"
-	"github.com/harsinigovindarao/braindump-cli/internal/utils"
-
+	"github.com/harsinigovindarao/braindump-cli/utils"
 )
 
 var samplePrompts = []string{
@@ -36,19 +36,28 @@ func AskAndCapturePrompt() models.Thought {
 	response, _ := reader.ReadString('\n')
 	response = strings.TrimSpace(response)
 
-	// Recommend similar thoughts
-	history := storage.LoadThoughts()
-	if rec := utils.Recommend(response, history); rec != nil {
-		fmt.Println("🔁 Similar thought you had earlier:")
-		fmt.Println("   🧠", rec.Text)
-		fmt.Println("   📅", rec.Timestamp.Format("Jan 2 15:04"))
-	}
-
-	// Build Thought
-	return models.Thought{
-		ID:        "1", // replace with UUID if needed
+	// Build the current thought
+	currentThought := models.Thought{
+		ID:        uuid.NewString(), // fixed: use UUID
 		Text:      response,
 		Timestamp: time.Now(),
 		Prompt:    prompt,
 	}
+
+	// Recommend similar thoughts
+	history := storage.LoadThoughts()
+	recs := utils.Recommend(currentThought, history) // slice of thoughts
+
+	if len(recs) > 0 {
+		fmt.Println("🔁 Similar thoughts you had earlier:")
+		for i, r := range recs {
+			if i >= 3 { // limit to top 3 for CLI
+				break
+			}
+			fmt.Println("   🧠", r.Text)
+			fmt.Println("   📅", r.Timestamp.Format("Jan 2 15:04"))
+		}
+	}
+
+	return currentThought
 }

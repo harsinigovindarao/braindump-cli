@@ -71,18 +71,28 @@ func printWelcome() {
 
 func handleThought(input string) {
 	history := storage.LoadThoughts()
-	if rec := classification.Recommend(input, history); rec != nil {
+
+	// Build the Thought struct first
+	t := models.Thought{
+		ID:        uuid.New().String(),
+		Text:      input,
+		Category:  "default",
+		Tone:      "neutral",
+		Timestamp: time.Now(),
+		Prompt:    "cli",
+		Priority:  0,
+	}
+	// Now Recommend should work on Thought + history
+	if rec := classification.Recommend(t.Text, history); rec != nil {
 		fmt.Println("🔁 Similar thought you had earlier:")
 		fmt.Println("   🧠", rec.Text)
 		fmt.Println("   📅", rec.Timestamp.Format("Jan 2 15:04"))
 	}
 
-	t := models.Thought{
-		ID:        uuid.New().String(),
-		Text:      input,
-		Timestamp: time.Now(),
-	}
+	// ScorePriority also works on Thought + history
 	t.Priority = classification.ScorePriority(t, history)
+
+	// Queue it for processing
 	ThoughtQueue <- t
 }
 

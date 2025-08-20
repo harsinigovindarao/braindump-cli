@@ -23,6 +23,7 @@ func ServeWebUI() {
 	// Serve static HTML and assets
 	http.Handle("/", http.FileServer(http.Dir("./static")))
 
+
 	// POST /thought — save a new thought
 	http.HandleFunc("/thought", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {

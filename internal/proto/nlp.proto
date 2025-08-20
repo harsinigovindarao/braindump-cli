@@ -3,7 +3,9 @@ syntax = "proto3";
 package nlp;
 
 
-option go_package = "github.com/harsinigovindarao/github.com/harsinigovindarao/braindump-cli/internal/nlp/proto";
+option go_package = "internal/nlp/proto;proto";
+
+
 
 service NLPService {
   rpc ClassifyText (TextRequest) returns (TextResponse);

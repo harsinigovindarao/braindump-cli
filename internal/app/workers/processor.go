@@ -6,6 +6,7 @@ import (
 
 	"github.com/harsinigovindarao/braindump-cli/internal/models"
 	"github.com/harsinigovindarao/braindump-cli/internal/storage"
+	"github.com/harsinigovindarao/braindump-cli/utils"
 )
 
 func StartProcessor(ch <-chan models.Thought) {

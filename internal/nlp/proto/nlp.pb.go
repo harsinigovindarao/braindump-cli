@@ -7,12 +7,11 @@
 package proto
 
 import (
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
-
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -130,7 +129,7 @@ const file_nlp_proto_rawDesc = "" +
 	"\x04tone\x18\x02 \x01(\tR\x04tone2A\n" +
 	"\n" +
 	"NLPService\x123\n" +
-	"\fClassifyText\x12\x10.nlp.TextRequest\x1a\x11.nlp.TextResponseB\"Z github.com/harsinigovindarao/harsinigovindarao/braindump-cli/internal/nlp/protob\x06proto3"
+	"\fClassifyText\x12\x10.nlp.TextRequest\x1a\x11.nlp.TextResponseB\x1aZ\x18internal/nlp/proto;protob\x06proto3"
 
 var (
 	file_nlp_proto_rawDescOnce sync.Once

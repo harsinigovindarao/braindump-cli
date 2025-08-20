@@ -1,4 +1,4 @@
-package nlp
+package main
 
 import (
 	"context"
@@ -41,4 +41,7 @@ func StartGRPCServer() {
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}
+}
+func main() {
+    StartGRPCServer()
 }
